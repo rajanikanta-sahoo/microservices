@@ -1,8 +1,50 @@
 package domain;
 
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import lombok.Data;
+
+@Entity
+@Table
+@Data
 public class Appointment {
 	
-	int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
+	private int id;
 	
-	int test;
+	@ManyToOne
+	@JoinColumn(name="dep_apt_id")
+	private Department departmentId;
+	
+	@ManyToOne
+	@JoinColumn(name="pat_apt_id")
+	private User patientId;
+	
+	@ManyToOne
+	@JoinColumn(name="doc_apt_id")
+	private User doctorId;
+	
+	@CreationTimestamp
+	@Temporal(TemporalType.DATE)
+	private Date createdDate;
+	
+	@CreationTimestamp
+	@Temporal(TemporalType.DATE)
+	private Date updatedDate;
+	
 }
